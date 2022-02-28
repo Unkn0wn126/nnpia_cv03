@@ -1,11 +1,11 @@
 package cz.upce.fei.nnpiacv03.services;
 
-import cz.upce.fei.nnpiacv03.posts.Greeting;
+import cz.upce.fei.nnpiacv03.posts.Post;
 
 import java.util.List;
 
 public interface AnswerService {
-    public void addAnswer(Greeting answer);
+    void addAnswer(Post answer);
 
-    public List<Greeting> getAnswers();
+    List<Post> getAnswers();
 }

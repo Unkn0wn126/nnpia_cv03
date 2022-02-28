@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Posts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Posts</h1>
+<div>
+    <h2>All posts</h2>
+    <ul>
+        <th:block th:each="answer: ${allAnswers}">
+            <li th:text="'Header: ' + ${answer.header} + '; Message: ' + ${answer.content}"></li>
+        </th:block>
+    </ul>
+</div>
+<div>
+    <h2>Your posts</h2>
+    <ul>
+        <th:block th:each="answer: ${individualAnswers}">
+            <li th:text="'Header: ' + ${answer.header} + '; Message: ' + ${answer.content}"></li>
+        </th:block>
+    </ul>
+</div>
+<a href="/posts/post">Submit another message</a>
+<a href="/user/">View users</a>
+</body>
+</html>

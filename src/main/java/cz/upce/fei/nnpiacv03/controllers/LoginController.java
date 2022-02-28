@@ -1,6 +1,5 @@
 package cz.upce.fei.nnpiacv03.controllers;
 
-import cz.upce.fei.nnpiacv03.posts.Greeting;
 import cz.upce.fei.nnpiacv03.services.AnswerService;
 import cz.upce.fei.nnpiacv03.services.CounterService;
 import cz.upce.fei.nnpiacv03.services.SessionService;
@@ -14,15 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-public class GreetingController {
-
+public class LoginController {
     private final AnswerService allAnswerService;
     private final AnswerService individualAnswerService;
     private final SessionService userSessionService;
     private final UsersService usersService;
     private CounterService sessionCounterService;
 
-    public GreetingController(@Qualifier("allAnswerServiceImpl") AnswerService allAnswerService,
+    public LoginController(@Qualifier("allAnswerServiceImpl") AnswerService allAnswerService,
                               @Qualifier("individualAnswerServiceImpl") AnswerService individualAnswerService,
                               @Qualifier("sessionCounterServiceImpl") CounterService sessionCounterService,
                               @Qualifier("userSessionServiceImpl") SessionService userSessionService,
@@ -36,12 +34,14 @@ public class GreetingController {
 
     @GetMapping("/")
     public String greetingPage(Model model){
-        if (userSessionService.getUser() == null)
+        if (userSessionService.getUser() == null) {
             model.addAttribute("user", new User());
-        else
+            return "greetingPage";
+        }
+        else {
             model.addAttribute("user", userSessionService.getUser());
-
-        return "greetingPage";
+            return "redirect:/posts/post";
+        }
     }
 
     @PostMapping("/")
@@ -54,23 +54,5 @@ public class GreetingController {
         }
 
         return "userPage";
-    }
-
-    @GetMapping("/greeting")
-    public String greetingForm(Model model){
-        model.addAttribute("greeting", new Greeting());
-        model.addAttribute("allAnswers", allAnswerService.getAnswers());
-        model.addAttribute("individualAnswers", individualAnswerService.getAnswers());
-        return "greeting";
-    }
-
-    @PostMapping("/greeting")
-    public String greetingSubmit(@ModelAttribute Greeting greeting, Model model){
-        model.addAttribute("greeting", greeting);
-        allAnswerService.addAnswer(greeting);
-        individualAnswerService.addAnswer(greeting);
-        model.addAttribute("allAnswers", allAnswerService.getAnswers());
-        model.addAttribute("individualAnswers", individualAnswerService.getAnswers());
-        return "result";
     }
 }

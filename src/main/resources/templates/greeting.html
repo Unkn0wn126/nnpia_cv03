@@ -1,31 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <title>Form submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <h1>Form</h1>
-<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
-    <p>Id: <input type="text" th:field="*{id}" /></p>
+<form action="#" th:action="@{/posts/post}" th:object="${post}" method="post">
+    <p>Header: <input type="text" th:field="*{header}" /></p>
     <p>Message: <input type="text" th:field="*{content}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 </form>
-<div>
-    <h2>All answers</h2>
-    <ul>
-        <th:block th:each="answer: ${allAnswers}">
-            <li th:text="'ID: ' + ${answer.id} + '; Content: ' + ${answer.content}"></li>
-        </th:block>
-    </ul>
-</div>
-<div>
-    <h2>Your answers</h2>
-    <ul>
-        <th:block th:each="answer: ${individualAnswers}">
-            <li th:text="'ID: ' + ${answer.id} + '; Content: ' + ${answer.content}"></li>
-        </th:block>
-    </ul>
-</div>
+<a href="/posts/">View posts</a>
+<a href="/user/">View users</a>
 </body>
 </html>

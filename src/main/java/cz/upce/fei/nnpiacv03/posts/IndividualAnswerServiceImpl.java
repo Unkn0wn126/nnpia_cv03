@@ -11,19 +11,19 @@ import java.util.List;
 @Service
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class IndividualAnswerServiceImpl implements AnswerService {
-    private final List<Greeting> answers;
+    private final List<Post> answers;
 
     public IndividualAnswerServiceImpl(){
         answers = new ArrayList<>();
     }
 
     @Override
-    public void addAnswer(Greeting answer){
+    public void addAnswer(Post answer){
         answers.add(answer);
     }
 
     @Override
-    public List<Greeting> getAnswers(){
+    public List<Post> getAnswers(){
         return answers;
     }
 }

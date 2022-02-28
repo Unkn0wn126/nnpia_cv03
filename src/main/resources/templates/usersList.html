@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Posts</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Posts</h1>
+<div>
+    <h2>All users</h2>
+    <ul>
+        <th:block th:each="user: ${users}">
+            <li><a th:href="${user.userId}" th:text="${user.name}"></a></li>
+        </th:block>
+    </ul>
+</div>
+<a href="/posts/post">Submit message</a>
+<a href="/posts/">View posts</a>
+<a href="/user/">View users</a>
+</body>
+</html>

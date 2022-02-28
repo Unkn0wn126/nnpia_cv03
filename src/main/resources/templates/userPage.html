@@ -6,6 +6,16 @@
 </head>
 <body>
 <h1 th:text="${user.name} + '\'s profile'"></h1>
-<a href="/greeting">Submit a message</a>
+<div>
+    <h2 th:text="${user.name} + '\'s posts'"></h2>
+    <ul>
+        <th:block th:each="post: ${userPosts}">
+            <li th:text="'Header: ' + ${post.header} + '; Message: ' + ${post.content}"></li>
+        </th:block>
+    </ul>
+</div>
+<a href="/posts/post">Submit a message</a>
+<a href="/posts/">View posts</a>
+<a href="/user/">View users</a>
 </body>
 </html>
