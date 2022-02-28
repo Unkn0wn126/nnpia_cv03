@@ -5,6 +5,7 @@ import cz.upce.fei.nnpiacv03.services.AnswerService;
 import cz.upce.fei.nnpiacv03.services.CounterService;
 import cz.upce.fei.nnpiacv03.services.SessionService;
 import cz.upce.fei.nnpiacv03.users.User;
+import cz.upce.fei.nnpiacv03.users.UsersService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,13 +19,19 @@ public class GreetingController {
     private final AnswerService allAnswerService;
     private final AnswerService individualAnswerService;
     private final SessionService userSessionService;
+    private final UsersService usersService;
     private CounterService sessionCounterService;
 
-    public GreetingController(@Qualifier("allAnswerServiceImpl") AnswerService allAnswerService, @Qualifier("individualAnswerServiceImpl") AnswerService individualAnswerService, @Qualifier("sessionCounterServiceImpl") CounterService sessionCounterService, @Qualifier("userSessionServiceImpl") SessionService userSessionService) {
+    public GreetingController(@Qualifier("allAnswerServiceImpl") AnswerService allAnswerService,
+                              @Qualifier("individualAnswerServiceImpl") AnswerService individualAnswerService,
+                              @Qualifier("sessionCounterServiceImpl") CounterService sessionCounterService,
+                              @Qualifier("userSessionServiceImpl") SessionService userSessionService,
+                              @Qualifier("usersServiceImpl") UsersService usersService) {
         this.allAnswerService = allAnswerService;
         this.individualAnswerService = individualAnswerService;
         this.userSessionService = userSessionService;
         this.sessionCounterService = sessionCounterService;
+        this.usersService = usersService;
     }
 
     @GetMapping("/")
@@ -43,9 +50,9 @@ public class GreetingController {
         if (userSessionService.getUser() == null){
             user.setUserId(sessionCounterService.getId());
             userSessionService.setUser(user);
+            usersService.addUser(user);
         }
 
-        System.out.println(userSessionService.getUser().getUserId() + " " + userSessionService.getUser().getName());
         return "userPage";
     }
 
