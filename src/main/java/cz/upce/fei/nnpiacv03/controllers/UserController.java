@@ -32,6 +32,10 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String userPage(@PathVariable("id") Integer userId, Model model){
+        if (userSessionService.getUser() == null){
+            return "redirect:/";
+        }
+
         User user = usersService.getUser(userId);
         if (user != null){
             model.addAttribute("user", user);
@@ -52,9 +56,13 @@ public class UserController {
 
     @GetMapping("/")
     public String userList(Model model){
-            List<User> users = usersService.getAllUsers();
-            model.addAttribute("users", users);
+        if (userSessionService.getUser() == null){
+            return "redirect:/";
+        }
 
-            return "usersList";
+        List<User> users = usersService.getAllUsers();
+        model.addAttribute("users", users);
+
+        return "usersList";
     }
 }
